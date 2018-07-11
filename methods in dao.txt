@@ -22,7 +22,10 @@ public Integer addProgramsOffered(ProgramsOffered programsOffered) throws UASExc
 			preparedStatement = connection
 					.prepareStatement(IQueryMapper.QUERY18);
 			preparedStatement.setString(1, programsOffered.getProgramName());
-			preparedStatement.setString(2, pr);
+			preparedStatement.setString(2, programsOffered.getProgramDescription());
+			preparedStatement.setString(3, programsOffered.getApplicantEligibility());
+			preparedStatement.setInt(4, programsOffered.getProgramDuration());
+			preparedStatement.setString(5, programsOffered.getDegreeCertOffered());
 			result = preparedStatement.executeUpdate();
 		}
 		catch(Exception e)
