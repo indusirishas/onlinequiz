@@ -1,0 +1,109 @@
+
+
+System.out.println("Please enter your ApplicantID");
+					do {
+						Scanner scanner1 = new Scanner(System.in);
+						Integer applicantId = scanner1.nextInt();
+						valid = Validation.isValidApplicantId(applicantId);
+						if (valid) {
+							System.out.println();
+							Application application1 = new Application();
+							application1 = service.applicantStatus(applicantId);
+							if (application1.getStatus().equalsIgnoreCase("confirmed")) {
+								System.out.println("Your application status is "
+										+ application1.getStatus().toUpperCase()
+										+ " and your interview is scheduled on "
+										+ application1.getDateOfInterview());
+							} else {
+								System.out.println("Your application status is :: "
+										+ application1.getStatus().toUpperCase());
+							}
+						} else
+							System.err
+									.println("Please enter valid Applicant ID");
+					} while (valid != true);
+
+-----------------------------------------------------------
+
+System.out.println("Enter Program Scheduled ID");
+					do {
+						String scheduledId = scanner2.nextLine();
+						valid = Validation.isValidScheduledId(scheduledId);
+						if (valid)
+							application.setScheduledProgramId(scheduledId);
+						else
+							System.err
+									.println("Please enter valid Scheduled ID");
+					} while (valid != true);
+-----------------------------------------------------
+public static boolean isValidScheduledId(String scheduledId) throws UASException {
+		IUniversityDao universityDao=new UniversityDaoImpl();
+		boolean result =  universityDao.checkScheduledId(scheduledId);
+		return result;
+	}
+
+-----------------------------------------------------------------
+	public static boolean isValidApplicantId(Integer applicantId) throws UASException {
+		IUniversityDao universityDao=new UniversityDaoImpl();
+		boolean result =  universityDao.checkApplicantId(applicantId);
+		return result;
+	}
+---------------------------------
+@Override
+	public boolean checkScheduledId(String scheduledId) throws UASException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		boolean result = true;
+		int flag = 0;
+		try {
+			connection = DBUtil.getConnection();
+			preparedStatement = connection
+					.prepareStatement(IQueryMapper.QUERY16);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				if (resultSet.getString(1).equals(scheduledId)) {
+					flag = 1;
+					break;
+				}
+			}
+			if (flag == 1) {
+				result = true;
+			} else {
+				result = false;
+			}
+		} catch (SQLException e) {
+			throw new UASException(IExceptionMessages.MESSAGE4);
+		}
+		return result;
+	}
+-----------------------------------------------------------------------------------------
+	@Override
+	public boolean checkApplicantId(Integer applicantId) throws UASException {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		boolean result = true;
+		int flag = 0;
+		try {
+			connection = DBUtil.getConnection();
+			preparedStatement = connection
+					.prepareStatement(IQueryMapper.QUERY17);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				if (resultSet.getInt(1)==applicantId) {
+					flag = 1;
+					break;
+				}
+			}
+			if (flag == 1) {
+				result = true;
+			} else {
+				result = false;
+			}
+		} catch (SQLException e) {
+			throw new UASException(IExceptionMessages.MESSAGE4);
+		}
+		return result;
+	}
