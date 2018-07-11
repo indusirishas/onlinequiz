@@ -10,3 +10,24 @@ Integer addParticipants(Application application)
 Integer insertProgram(ProgramsScheduled programsScheduled)
 ArrayList<Participants> retrieveParticipants()
 Integer removeProgramsScheduled(String scheduledId)
+---------------
+
+public Integer addProgramsOffered(ProgramsOffered programsOffered) throws UASException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int result = 0;
+		try
+		{
+			connection = DBUtil.getConnection();
+			preparedStatement = connection
+					.prepareStatement(IQueryMapper.QUERY18);
+			preparedStatement.setString(1, programsOffered.getProgramName());
+			preparedStatement.setString(2, pr);
+			result = preparedStatement.executeUpdate();
+		}
+		catch(Exception e)
+		{
+			throw new UASException(IExceptionMessages.MESSAGE4);
+		}
+		return result;
+	}
