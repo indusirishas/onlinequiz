@@ -107,3 +107,5 @@ public static boolean isValidScheduledId(String scheduledId) throws UASException
 		}
 		return result;
 	}
+String QUERY16 = "SELECT scheduled_program_id from programs_scheduled";
+	String QUERY17 = "SELECT applicant_id from application";
