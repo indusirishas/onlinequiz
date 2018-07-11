@@ -1,3 +1,43 @@
+
+
+----------------------------------------------------------------------
+case 4: System.out.println("Enter the program name to be deleted"); 
+Scanner scanner6 = new Scanner(System.in);
+String programName1 = scanner6.next();
+Integer result = service.deleteProgramsOffered(programName1);
+if(result==1)
+{
+	System.out.println(programName1 +"in Programs Offered is deleted successfully");
+}
+
+-------------------------------------------------------
+public Integer deleteProgramsOffered(String programName1) throws UASException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int result = 0;
+		try
+		{
+			connection = DBUtil.getConnection();
+			preparedStatement = connection
+					.prepareStatement(IQueryMapper.QUERY19);
+			preparedStatement.setString(1, programName1);
+			result = preparedStatement.executeUpdate();
+		}
+		catch(Exception e)
+		{
+			throw new UASException(IExceptionMessages.MESSAGE4);
+		}
+		return result;
+	}
+	
+------------------------------------------------------------------------------------
+
+
+String QUERY19 = "DELETE FROM programs_offered where program_name = ?";
+
+
+---------------------------------------------------------------------------------
+
 ArrayList<ProgramsOffered> viewAllPrograms()
 ArrayList<ProgramsScheduled> viewScheduledPrograms()
 Integer applicantDetails(Application application) 
