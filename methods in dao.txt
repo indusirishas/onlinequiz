@@ -3,8 +3,17 @@
 ----------------------------------------------------------------------
 case 4: System.out.println("Enter the program name to be deleted"); 
 Scanner scanner6 = new Scanner(System.in);
-String programName1 = scanner6.next();
-Integer result = service.deleteProgramsOffered(programName1);
+String programName1 = null;
+Integer result = 0;
+do
+{
+	programName1 = scanner6.next();
+	valid = Validation.isValidProgramName(programName1);
+	if(valid)
+		result = service.deleteProgramsOffered(programName1);
+	else
+		System.err.println("Please enter valid Program Name");
+}while(valid!=true);
 if(result==1)
 {
 	System.out.println(programName1 +"in Programs Offered is deleted successfully");
