@@ -1,4 +1,21 @@
-
+ArrayList<ProgramsOffered> viewAllPrograms()
+ ArrayList<ProgramsScheduled> viewScheduledPrograms()
+  Integer applicantDetails(Application application)
+  boolean adminLogin(String userName, String password, String role)
+   ArrayList<Application> filterApplicantsByProgramName(String progName)
+   Application applicantStatus(Integer id) 
+   Integer updateStatus(Integer applicantId, Integer marksObtained)
+   Integer addParticipants(Application application)
+   Integer deletePrograms()
+    Integer insertProgram(ProgramsScheduled programsScheduled)
+    ArrayList<Participants> retrieveParticipants()
+    Integer removeProgramsScheduled(String scheduledId)
+    boolean checkScheduledId(String scheduledId)
+    boolean checkApplicantId(Integer applicantId)
+    Integer confirmParticipants(Integer applicantId, String status)
+     Integer addProgramsOffered(ProgramsOffered programsOffered)
+     Integer deleteProgramsOffered(String programName1)
+     ArrayList<Application> viewApplicantDetails()
 
 ----------------------------------------------------------------------
 case 4: System.out.println("Enter the program name to be deleted"); 
